@@ -14,10 +14,14 @@ int main() {
   // int n = 800;
   int threadsN = 512;
   double *A, *R;
+
   cudaEvent_t start, stop;
+  cudaEventCreate(&start);
+  cudaEventCreate(&stop);
+  float time;
 
   // starting the timer
-
+  cudaEventRecord(start, 0);
   // allocating the necessary memory
   A = NULL;
   A = (double*)malloc(m * n * sizeof(double));
@@ -32,9 +36,11 @@ int main() {
 
   free(A);
   free(R);
+  cudaEventRecord(stop, 0);
+  cudaEventSynchronize(stop);
+  cudaEventElapsedTime(&time, start, stop);
 
-  //stop = clock();
-  //printf("Elapsed time %lf [s]\n", (stop-start)/(double)CLOCKS_PER_SEC);
+  printf("Elapsed time %lf [p]\n", time);
   return 0;
 }
 
@@ -70,6 +76,9 @@ void gram(double* A, int m, int n, double *R, int threadsN){
     scale <<< n - i, dimBlock >>> (&RDevice[i * n + i]), n - i, 1, &RDevice[i * n + i]);
     r1_update <<< m, dimBlock >>> (&A[i + 1], m, n - i - 2, n, &A[i], n, &R[i]);
   }
+
+  cudaFree(ADevice);
+  cudaFree(RDevice);
 
 }
 
