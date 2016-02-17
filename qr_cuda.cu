@@ -41,7 +41,8 @@ int main() {
   cudaEventElapsedTime(&time, start, stop);
 
   // time is in ms
-  printf("Elapsed time %lf [p]\n", (time/1000));
+  printf("Elapsed time %6.3f s [p]\n", time/1000);
+  printf("Bandwidth: %6.3f GB/s\n", m * n * sizeof(double) / (time / 1000)); 
   return 0;
 }
 

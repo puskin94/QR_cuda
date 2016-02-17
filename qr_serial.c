@@ -37,7 +37,8 @@ int main() {
   free(R);
 
   stop = clock();
-  printf("Elapsed time %lf [s]\n", (stop-start)/(double)CLOCKS_PER_SEC);
+  printf("Elapsed time %6.3f [s]\n", (stop-start)/(double)CLOCKS_PER_SEC);
+  printf("Bandwidth: %6.3f GB/s\n", m * n * sizeof(double) / ((stop-start)/(double)CLOCKS_PER_SEC));
   return 0;
 
 }
