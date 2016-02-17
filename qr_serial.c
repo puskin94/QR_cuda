@@ -8,10 +8,10 @@
 
 
 int main() {
-  int m = 400;
-  int n = 300;
-  // int m = 1000;
-  // int n = 800;
+  //int m = 400;
+  //int n = 300;
+  int m = 1000;
+  int n = 800;
 
   double *A, *R;
   clock_t start,stop;
